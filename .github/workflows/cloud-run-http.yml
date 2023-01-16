@@ -45,7 +45,7 @@ jobs:
 
       - name: Install PostgreSQL
         run: |-
-          apt install postgresql postgresql-contrib -y
+          sudo apt install postgresql postgresql-contrib -y
 
       - name: Authenticate Google Cloud
         uses: 'google-github-actions/auth@v1'
