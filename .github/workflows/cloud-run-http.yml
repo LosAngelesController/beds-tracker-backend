@@ -11,6 +11,7 @@ env:
   LOAD_BALANCER_NAME: ${{ secrets.LOAD_BALANCER_NAME }}
   # Moved to Oregon, Low CO2 usage :) and also supports cloud mapping
   CLOUD_RUN_REGION: us-west1
+  SQL_INSTANCE_NAME: ${{ secrets.SQL_INSTANCE_NAME }}
   # project-name but it can be anything you want
   REPO_NAME: http-checkbook
 
@@ -73,6 +74,7 @@ jobs:
         run: |-
           gcloud components install beta --quiet
           gcloud beta run deploy $REPO_NAME --image gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA \
+            --add-cloudsql-instances $SQL_INSTANCE_NAME \
             --project $CLOUD_RUN_PROJECT_ID \
             --platform managed \
             --region $CLOUD_RUN_REGION \
