@@ -27,16 +27,16 @@ jobs:
           mv socketdockerfile Dockerfile
 
       - name: Move config.json
-        run: 'echo "$configjson" > config.json'
+        run: echo "$configjson" > config.json
         shell: bash
         env:
           configjson: ${{secrets.CONFIGJSON}}
 
       - name: Move postgre keys
         run: |-
-          'echo "$pgclientkey" > client-key.pem'
-          'echo "$pgclientcert" > client-cert.pem'
-          'echo "$pgserverca" > server-ca.pem'
+          echo "$pgclientkey" > client-key.pem
+          echo "$pgclientcert" > client-cert.pem
+          echo "$pgserverca" > server-ca.pem
         shell: bash
         env:
           pgclientkey: ${{secrets.PGCLIENTKEY}}
