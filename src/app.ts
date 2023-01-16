@@ -4,6 +4,8 @@ const server = require('http').createServer();
 const socket = require('socket.io')(server, {
   cors: {
     origins: ["https://checkbook.mejiaforcontroller.com",
+    "https://checkbook.lacontroller.io",
+    "https://checkbook.lacity.gov",
   "http://localhost:3001","http://localhost:3000"],
     methods: ["GET", "POST"]
   }
@@ -121,7 +123,7 @@ async function main() {
           //SELECT vendor_name, sum(dollar_amount) FROM losangelescheckbook GROUP BY vendor_name;
       //took over 17 seconds to run! a fast query index is required
   
-      const vendorquery = "SELECT * FROM vendor_summed WHERE vendor_name ILIKE '%' || $1 || '%' ORDER BY sum desc LIMIT 100;"
+      const vendorquery = "SELECT * FROM vendors_summed WHERE vendor_name ILIKE '%' || $1 || '%' ORDER BY sum desc LIMIT 100;"
   
       if (typeof args.querystring === "string") {
         const start = performance.now();
