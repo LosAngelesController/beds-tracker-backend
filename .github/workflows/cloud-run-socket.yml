@@ -32,6 +32,12 @@ jobs:
         env:
           configjson: ${{secrets.CONFIGJSON}}
 
+      - name: Move sqlinstancename
+        run: echo "$sqlinstancename" > sqlinstancename.txt
+        shell: bash
+        env:
+          sqlinstancename: ${{secrets.SQL_INSTANCE_NAME}}
+
       - name: Move postgre keys
         run: |-
           echo "$pgclientkey" | base64 -d > client-key.pem
@@ -63,6 +69,10 @@ jobs:
           gcloud services enable containerregistry.googleapis.com
           gcloud services enable run.googleapis.com
           gcloud --quiet auth configure-docker
+      - name: Enable Google Cloud SQL Proxy
+        run: |-
+          wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+          chmod +x cloud_sql_proxy
       - name: Build and tag image
         run: |-
           docker build . --tag "gcr.io/$CLOUD_RUN_PROJECT_ID/$REPO_NAME:$GITHUB_SHA"

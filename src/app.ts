@@ -1,6 +1,5 @@
 import fs from 'fs'
 
-
 var argv = require('optimist').argv;
 
 const server = require('http').createServer();
