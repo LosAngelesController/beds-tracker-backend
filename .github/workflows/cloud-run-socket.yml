@@ -34,9 +34,9 @@ jobs:
 
       - name: Move postgre keys
         run: |-
-          'echo "$pgclientkey" | base64 -d client-key.pem'
-          'echo "$pgclientcert" | base64 -d > client-cert.pem'
-          'echo "$pgserverca" | base64 -d > server-ca.pem'
+          echo "$pgclientkey" | base64 -d client-key.pem
+          echo "$pgclientcert" | base64 -d > client-cert.pem
+          echo "$pgserverca" | base64 -d > server-ca.pem
         shell: bash
         env:
           pgclientkey: ${{secrets.PGCLIENTKEY}}
