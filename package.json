@@ -5,12 +5,15 @@
   "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "cloudrunhttp": "node ./dist/djkenster.js --port 8080",
+    "cloudrunsocket": "node ./dist/app.js --port 8080"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "optimist": "^0.6.1",
     "pg": "^8.8.0",
     "socket.io": "^4.5.2",
     "typescript": "^4.9.4"

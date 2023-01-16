@@ -1,5 +1,8 @@
 import fs from 'fs'
 
+
+var argv = require('optimist').argv;
+
 const server = require('http').createServer();
 const socket = require('socket.io')(server, {
   cors: {
@@ -10,7 +13,7 @@ const socket = require('socket.io')(server, {
     methods: ["GET", "POST"]
   }
 });
-server.listen(29392);
+server.listen(argv.port || 29392);
 
 const config = require('../config.json');
 
