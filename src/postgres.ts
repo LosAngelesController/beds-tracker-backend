@@ -11,6 +11,8 @@ export const pgclient = new Client({
   port: config.db.port,
   ssl: {
     rejectUnauthorized: false,
-    ca: fs.readFileSync('./ca-certificate.crt').toString(),
+    ca: fs.readFileSync('./server-ca.pem').toString(),
+    key: fs.readFileSync('./client-key.pem').toString(),
+    cert:  fs.readFileSync('./client-cert.pem').toString(),
   }
 })
