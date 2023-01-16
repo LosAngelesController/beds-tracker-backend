@@ -5,7 +5,9 @@
   "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "cloudrunhttp": "./dist/djkenster.js --port 8080",
+    "cloudrunsocket": "./dist/app.js --port 8080"
   },
   "author": "",
   "license": "ISC",
