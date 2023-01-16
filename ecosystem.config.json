@@ -1,0 +1,13 @@
+{
+    "apps": [{
+      "name"   : "checkbook-socket",
+      "script" : "node",
+      "args"   :"./dist/app.js"
+    },
+    {
+        "name"   : "checkbook-http",
+        "script" : "node",
+        "args"   :"./dist/djkenster.js"
+      }]
+  }
+  
