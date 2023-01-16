@@ -10,7 +10,7 @@ const socket = require('socket.io')(server, {
     methods: ["GET", "POST"]
   }
 });
-server.listen(3000);
+server.listen(29392);
 
 const config = require('../config.json');
 
