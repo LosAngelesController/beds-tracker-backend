@@ -129,3 +129,5 @@ dist
 config.json
 dist/
 ca-certificate.crt
+
+*.pem
