@@ -39,6 +39,12 @@ async function main() {
   socket.on('connection', client => {
     client.on('disconnect', () => { /* … */ });
 
+    client.on('allaliases', async (args) => {
+      client.emit('allaliasesres', {
+        aliasforwarding: aliasforwarding
+      })
+    })
+
     client.on('fetchdepts', async (args) => {
       const deptallquery = 'SELECT * FROM department_summary';
 
