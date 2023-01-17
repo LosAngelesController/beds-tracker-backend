@@ -99,15 +99,12 @@ Recieves an object like this
           const thisyear = "SELECT * FROM latestyearpervendorsummary WHERE vendor_name = $1"
 
           const totalcost = "SELECT * FROM vendors_summed WHERE vendor_name = $1"
-          const totalnumberoftransactions = "SELECT * FROM numberoftransactionspervendor WHERE vendor_name = $1"
-
+        
         const resultsforvendordata = await Promise.all([
           pgclient.query(thisyear, 
             [vendorstringtosearch]),
           pgclient.query(totalcost, 
-              [vendorstringtosearch]),
-          pgclient.query(totalnumberoftransactions, 
-                [vendorstringtosearch])  
+              [vendorstringtosearch])
         ])
 
         const end = performance.now();
@@ -116,8 +113,7 @@ Recieves an object like this
         res.send({
           timeelapsed: end-start,
           thisyearsum: resultsforvendordata[0].rows,
-          totalcost: resultsforvendordata[1].rows,
-          totalnumberoftransactions: resultsforvendordata[2].rows
+          totalcost: resultsforvendordata[1].rows
         })
     }
 
