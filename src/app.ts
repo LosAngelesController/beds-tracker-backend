@@ -136,7 +136,7 @@ async function main() {
   
           //SELECT vendor_name, sum(dollar_amount) FROM losangelescheckbook GROUP BY vendor_name;
       //took over 17 seconds to run! a fast query index is required
-  
+      if (typeof args.querystring === "string") {
       var vendorquery = "SELECT * FROM vendors_summed WHERE vendor_name ILIKE '%' || $1 || '%' ORDER BY sum desc LIMIT 100;"
       
       var aliasforwarding = false
@@ -151,7 +151,7 @@ async function main() {
         aliasforwarding = aliasforwarding[args.querystring.toUpperCase()];
       }
 
-      if (typeof args.querystring === "string") {
+      
         const start = performance.now();
         const vendorresults = await pgclient.query(vendorquery, vendorparams);
         const end = performance.now();
