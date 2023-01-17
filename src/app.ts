@@ -138,7 +138,8 @@ async function main() {
       //took over 17 seconds to run! a fast query index is required
   
       var vendorquery = "SELECT * FROM vendors_summed WHERE vendor_name ILIKE '%' || $1 || '%' ORDER BY sum desc LIMIT 100;"
-  
+      
+      var aliasforwarding = false
       
       var vendorparams = [args.querystring];
 
@@ -146,6 +147,8 @@ async function main() {
         vendorquery = "SELECT * FROM vendors_summed WHERE (vendor_name ILIKE '%' || $1 || '%') OR (vendor_name ILIKE '%' || $2 || '%') ORDER BY sum desc LIMIT 100;"
       
         vendorparams = [args.querystring, aliasforwarding[args.querystring.toUpperCase()]];
+
+        aliasforwarding = aliasforwarding[args.querystring.toUpperCase()];
       }
 
       if (typeof args.querystring === "string") {
@@ -157,7 +160,8 @@ async function main() {
         client.emit("autocompleteresponse", {
           rows: vendorresults.rows,
           timeelapsed: end-start,
-          querystring: args.querystring
+          querystring: args.querystring,
+          aliasforwarding: aliasforwarding
         });
       }
 
