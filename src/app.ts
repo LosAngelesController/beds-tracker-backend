@@ -145,7 +145,7 @@ async function main() {
       if (aliasforwarding[args.querystring.toUpperCase()]) {
         vendorquery = "SELECT * FROM vendors_summed WHERE (vendor_name ILIKE '%' || $1 || '%') OR (vendor_name ILIKE '%' || $2 || '%') ORDER BY sum desc LIMIT 100;"
       
-        vendorparams = [args.querystring, aliasforwarding[args.querystring.toUpperCase()]]];
+        vendorparams = [args.querystring, aliasforwarding[args.querystring.toUpperCase()]];
       }
 
       if (typeof args.querystring === "string") {
