@@ -2,7 +2,8 @@ import {pgclient} from './postgres'
 import cors from 'cors'
 
 var argv = require('optimist').argv;
- 
+
+
 //DJKenster is the http api endpoint for checkbook.
 //https://djkenster.checkbook.mejiaforcontroller.com/vendorpage/
 
@@ -12,9 +13,11 @@ const port = argv.port || 3713;
 
 async function djkenster() {
     await pgclient.connect()
-    const res = await pgclient.query('SELECT * FROM losangelescheckbook LIMIT 100', [])
-    console.log(res.rows)
+    const restest = await pgclient.query('SELECT * FROM losangelescheckbook LIMIT 100', [])
+    console.log(restest.rows)
     // Hello world!
+
+ 
 
 app.get('/', (req, res) => {
   res.type('html');
@@ -93,19 +96,29 @@ Recieves an object like this
 
     const start = performance.now();
 
-    if (typeof vendorstringtosearch === "string") {
-          //number of transactions and total this year
-         // const thisyear = "select SUM(dollar_amount), COUNT(id_number) from losangelescheckbook WHERE vendor_name LIKE $1 AND transaction_date >= '2022-01-01' AND transaction_date <= '2022-12-31'"
-          const thisyear = "SELECT * FROM latestyearpervendorsummary WHERE vendor_name = $1"
+  
 
-          const totalcost = "SELECT * FROM vendors_summed WHERE vendor_name = $1"
+    if (typeof vendorstringtosearch === "string") {
         
+        //test alias forwarding using "SOUTHERN CALIFORNIA REGIONAL RAIL AUTHORITY" from "METROLINK"
+
+        var thisyearsumresult = [];
+        var totalcostresult = [];
+
+        const thisyear = "SELECT * FROM latestyearpervendorsummary WHERE vendor_name = $1"
+
+        const totalcost = "SELECT * FROM vendors_summed WHERE vendor_name = $1"
+
         const resultsforvendordata = await Promise.all([
           pgclient.query(thisyear, 
             [vendorstringtosearch]),
           pgclient.query(totalcost, 
               [vendorstringtosearch])
-        ])
+        ]);
+
+        thisyearsumresult = resultsforvendordata[0].rows;
+        totalcostresult = resultsforvendordata[1].rows;
+      
 
         const end = performance.now();
 
@@ -115,6 +128,8 @@ Recieves an object like this
           thisyearsum: resultsforvendordata[0].rows,
           totalcost: resultsforvendordata[1].rows
         })
+    } else {
+      console.error('no valid vendor name!')
     }
 
     

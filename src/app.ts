@@ -2,6 +2,10 @@ import fs from 'fs'
 
 var argv = require('optimist').argv;
 
+var aliasforwarding = {
+  "METROLINK": "SOUTHERN CALIFORNIA REGIONAL RAIL AUTHORITY"
+}
+
 const server = require('http').createServer();
 const socket = require('socket.io')(server, {
   cors: {
@@ -22,8 +26,16 @@ import {pgclient} from './postgres'
  
 async function main() {
   await pgclient.connect()
-  const res = await pgclient.query('SELECT * FROM losangelescheckbook LIMIT 100', [])
-  console.log(res.rows) // Hello world!
+  const restest = await pgclient.query('SELECT * FROM losangelescheckbook LIMIT 100', [])
+  console.log(restest.rows) // Hello world!
+
+  const resalias = await pgclient.query('SELECT * FROM aliastable', [])
+  console.log(resalias.rows);
+
+  resalias.rows.forEach((row) => {
+    aliasforwarding[row.input] = row.showas;
+  })
+
   socket.on('connection', client => {
     client.on('disconnect', () => { /* … */ });
 
@@ -125,11 +137,20 @@ async function main() {
           //SELECT vendor_name, sum(dollar_amount) FROM losangelescheckbook GROUP BY vendor_name;
       //took over 17 seconds to run! a fast query index is required
   
-      const vendorquery = "SELECT * FROM vendors_summed WHERE vendor_name ILIKE '%' || $1 || '%' ORDER BY sum desc LIMIT 100;"
+      var vendorquery = "SELECT * FROM vendors_summed WHERE vendor_name ILIKE '%' || $1 || '%' ORDER BY sum desc LIMIT 100;"
   
+      
+      var vendorparams = [args.querystring];
+
+      if (aliasforwarding[args.querystring]) {
+        vendorquery = "SELECT * FROM vendors_summed WHERE (vendor_name ILIKE '%' || $1 || '%') OR (vendor_name ILIKE '%' || $2 || '%') ORDER BY sum desc LIMIT 100;"
+      
+        vendorparams = [args.querystring, aliasforwarding[args.querystring]];
+      }
+
       if (typeof args.querystring === "string") {
         const start = performance.now();
-        const vendorresults = await pgclient.query(vendorquery, [args.querystring]);
+        const vendorresults = await pgclient.query(vendorquery, vendorparams);
         const end = performance.now();
         console.log(vendorresults.rows);
   
