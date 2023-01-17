@@ -144,6 +144,8 @@ async function main() {
       var vendorparams = [args.querystring];
 
       if (aliasforwarding[args.querystring.toUpperCase()]) {
+
+        console.log('alias forwarding triggered')
         vendorquery = "SELECT * FROM vendors_summed WHERE (vendor_name ILIKE '%' || $1 || '%') OR (vendor_name ILIKE '%' || $2 || '%') ORDER BY sum desc LIMIT 100;"
       
         vendorparams = [args.querystring, aliasforwarding[args.querystring.toUpperCase()]];
