@@ -1,12 +1,12 @@
 {
-  "name": "checkbook-bun-backend-api",
+  "name": "beds-tracker-backend",
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "cloudrunhttp": "node ./dist/daemon.js --port 8080 --nossl",
+    "cloudrunhttp": "node ./dist/daemon.js --port 8080 --nossl"
   },
   "author": "",
   "license": "ISC",
