@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "cloudrunhttp": "node ./dist/djkenster.js --port 8080 --nossl",
-    "cloudrunsocket": "node ./dist/app.js --port 8080 --nossl"
+    "cloudrunhttp": "node ./dist/daemon.js --port 8080 --nossl",
   },
   "author": "",
   "license": "ISC",
