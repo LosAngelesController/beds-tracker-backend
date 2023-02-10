@@ -8,7 +8,7 @@
     "build": "tsc",
     "cloudrunhttp": "node ./dist/daemon.js --port 8080 --nossl"
   },
-  "author": "",
+  "author": "Los Angeles City Controller",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
