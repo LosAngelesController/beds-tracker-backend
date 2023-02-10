@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "cloudrunhttp": "node ./dist/daemon.js --port 8080"
+    "cloudrunhttp": "node ./dist/daemon.js --port 8080 --nossl"
   },
   "author": "Los Angeles City Controller",
   "license": "ISC",
