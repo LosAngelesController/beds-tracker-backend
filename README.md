@@ -15,3 +15,5 @@ literally the project name of the google cloud project
 The raw json of the credentials file of a Service account with permission to do cloud run.
 - CLOUD_RUN_SERVICE_ACCOUNT_EMAIL
 The email of the service account
+
+When running the api in Google Cloud, ensure that the `sqladmin API (prod)` is enabled in your Google Cloud Project.
