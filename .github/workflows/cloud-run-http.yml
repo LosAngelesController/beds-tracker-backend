@@ -12,7 +12,7 @@ env:
   CLOUD_RUN_REGION: us-west1
   SQL_INSTANCE_NAME: ${{ secrets.SQL_INSTANCE_NAME }}
   # project-name but it can be anything you want
-  REPO_NAME: http-checkbook
+  REPO_NAME: backend-beds-trackers
 
 jobs:
   build-and-deploy:
