@@ -17,8 +17,6 @@ async function daemon() {
     console.log(restest.rows)
     // Hello world!
 
- 
-
 app.get('/', (req, res) => {
   res.type('html');
   res.send('Hello World!');
