@@ -3,8 +3,11 @@ import cors from 'cors'
 
 var argv = require('optimist').argv;
 
+import compression from 'express-compression'
+
 const express = require('express')
 const app = express()
+app.use(compression())
 const port = argv.port || 3713;
 
 async function daemon() {

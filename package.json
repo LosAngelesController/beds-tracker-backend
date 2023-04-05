@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "express-compression": "^1.0.2",
     "optimist": "^0.6.1",
     "pg": "^8.8.0",
     "socket.io": "^4.5.2",
