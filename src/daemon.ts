@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/shelters', cors(), async (req, res) => {
-  const restest = await pgclient.query('SELECT * FROM shelters', [])
+  const restest = await pgclient.query('https://api.sheety.co/aacf3e0f7311db48c4e758ecf773731f/cityOfLaShelters/master', [])
   res.json({
     rows: restest.rows
   })
